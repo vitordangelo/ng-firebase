@@ -25,13 +25,178 @@
   </div>
 </div>
 
+<!--ADD FORM-->
 <div *ngIf="appState == 'add'" class="row">
-  <div class="large-12 colums">
+  <div class="large-12 columns">
     <h3>Add Business</h3>
     <form (submit)="addBusiness(
-      
-    )">
+      company.value,
+      category.value,
+      years_in_bussiness.value,
+      description.value,
+      phone.value,
+      email.value,
+      street_address.value,
+      city.value,
+      state.value,
+      zipcode.value)">
 
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Company
+              <input type="text" placeholder="Company Name" #company>
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Category
+              <select #category>
+                <option value="0">Select</option>
+                <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Description
+              <input type="text" placeholder="Description" #description>
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Years In Business
+              <input type="text" placeholder="Years In Business" #years_in_bussiness>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Phone
+              <input type="text" placeholder="Phone Name" #phone>
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Email
+              <input type="text" placeholder="Email" #email>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Street Address
+              <input type="text" placeholder="Street Address" #street_address>
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>City
+              <input type="text" placeholder="City" #city>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>State
+              <input type="text" placeholder="State" #state>
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Zipcode
+              <input type="text" placeholder="Zipcode" #zipcode>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12">
+            <input type="submit" value="Submit" class="button">
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+<!--EDIT FORM-->
+<div *ngIf="appState == 'edit'" class="row">
+  <div class="large-12 columns">
+    <h3>Edit Business</h3>
+    <form (submit)="updateBusiness()">
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Company
+              <input type="text" name="activeCompany" [(ngModel)]="activeCompany" placeholder="Company Name">
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Category
+              <select name="activeCategory" [(ngModel)]="activeCategory">
+                <option value="0">Select</option>
+                <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Description
+              <input type="text" name="activeDescrition" [(ngModel)]="activeDescrition" placeholder="Description">
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Years In Business
+              <input type="text" name="activeYearsInBusiness" [(ngModel)]="activeYearsInBusiness" placeholder="Years In Business">
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Phone
+              <input type="text" name="activePhone" [(ngModel)]="activePhone" placeholder="Phone Name">
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Email
+              <input type="text" name="activeEmail" [(ngModel)]="activeEmail" placeholder="Email">
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>Street Address
+              <input type="text" name="activeStreetAddress" [(ngModel)]="activeStreetAddress" placeholder="Street Address">
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>City
+              <input type="text" name="activeCity" [(ngModel)]="activeCity" placeholder="City">
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <label>State
+              <input type="text" name="activeState" [(ngModel)]="activeState" placeholder="State">
+            </label>
+          </div>
+          <div class="large-6 columns">
+            <label>Zipcode
+              <input type="text" name="activeZipcode" [(ngModel)]="activeZipcode" placeholder="Zipcode">
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12">
+            <input type="submit" value="Submit" class="button">
+          </div>
+        </div>
     </form>
   </div>
 </div>
@@ -88,8 +253,8 @@
             <td>{{business.phone}}</td>
             <td>
               <button (click)="changeState('extend', business.$key)" class="button">More</button>
-              <button class="button secondary">Edit</button>
-              <button class="button alert">Delete</button>
+              <button (click)="showEdit(business)" class="button secondary">Edit</button>
+              <button (click)="deleteBusiness(business.$key)" class="button alert">Delete</button>
             </td>
           </tr>
         </tbody>

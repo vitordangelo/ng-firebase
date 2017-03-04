@@ -36,5 +36,17 @@ export class FirebaseService {
     FirebaseListObservable<Category[]>
     return this.categories;
   }
+
+  addBusiness(newBusiness) {
+    return this.business.push(newBusiness);
+  }
+
+  updateBusiness(key, updBusiness) {
+    return this.business.update(key, updBusiness);
+  }
+
+  deleteBusiness(key) {
+    return this.business.remove(key);
+  }
 }
 
